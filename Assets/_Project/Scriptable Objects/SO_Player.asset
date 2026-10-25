@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5adce0cee48f58049a01e3ddca44e3ea, type: 3}
   m_Name: SO_Player
   m_EditorClassIdentifier: Assembly-CSharp::EntityData
+  maxSpeed: 10
+  acceleration: 20
+  deceleration: 40
