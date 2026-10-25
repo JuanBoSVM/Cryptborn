@@ -7,7 +7,7 @@ public abstract class Menu : MonoBehaviour
 {
     protected UIDocument m_UIDocument;
     protected VisualElement m_RootVisualElement;
-    protected VisualElement m_ButtonContainer;
+    protected VisualElement m_MainContainer;
     protected VisualElement m_Selectors;
     protected List<Button> m_Buttons;
     protected Image m_LeftSelector;
@@ -73,10 +73,10 @@ public abstract class Menu : MonoBehaviour
 
     private void MatchSelectorsHeightToButtonContainer()
     {
-        m_Selectors.style.height = m_ButtonContainer.resolvedStyle.height;
-        m_Selectors.style.width = m_ButtonContainer.resolvedStyle.width;
-        m_Selectors.style.top = m_ButtonContainer.resolvedStyle.top;
-        m_Selectors.style.left = m_ButtonContainer.resolvedStyle.left;
+        m_Selectors.style.height = m_MainContainer.resolvedStyle.height;
+        m_Selectors.style.width = m_MainContainer.resolvedStyle.width;
+        m_Selectors.style.top = m_MainContainer.resolvedStyle.top;
+        m_Selectors.style.left = m_MainContainer.resolvedStyle.left;
     }
 
     protected void MoveSelectorsToButton(Button button)
@@ -101,15 +101,15 @@ public abstract class Menu : MonoBehaviour
         m_RightSelector.style.top = buttonPosition.y + verticalOffset;
 
         // Move each selector to the left and right of the button
-        m_LeftSelector.style.left = buttonPosition.x - m_LeftSelector.resolvedStyle.width;
-        m_RightSelector.style.left = buttonPosition.x + button.resolvedStyle.width;
+        m_LeftSelector.style.left = buttonPosition.x - m_LeftSelector.resolvedStyle.width - button.resolvedStyle.marginLeft;
+        m_RightSelector.style.left = buttonPosition.x + button.resolvedStyle.width + button.resolvedStyle.marginRight;
     }
 
     private void GetBaseComponents()
     {
         m_UIDocument = GetComponent<UIDocument>();
         m_RootVisualElement = m_UIDocument.rootVisualElement;
-        m_ButtonContainer = m_RootVisualElement.Q<VisualElement>("Buttons");
+        m_MainContainer = m_RootVisualElement.Q<VisualElement>("Main");
         m_Selectors = m_RootVisualElement.Q<VisualElement>("Selectors");
         m_Buttons = m_RootVisualElement.Query<Button>().ToList();
         m_LeftSelector = m_RootVisualElement.Q<Image>("Left");
@@ -126,9 +126,9 @@ public abstract class Menu : MonoBehaviour
             allComponentsValid = false;
         }
 
-        if (m_ButtonContainer == null)
+        if (m_MainContainer == null)
         {
-            Debug.LogWarning("Button container is missing in the Root VisualElement.");
+            Debug.LogWarning("Main container is missing in the Root VisualElement.");
             allComponentsValid = false;
         }
 

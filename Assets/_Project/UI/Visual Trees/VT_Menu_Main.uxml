@@ -1,8 +1,8 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/_Project/UI/Styles/USS_Menu.uss?fileID=7433441132597879392&amp;guid=0ef0e218ed7bf9e448f5202d412219df&amp;type=3#USS_Menu"/>
-    <ui:VisualElement name="Menu" class="container">
+    <ui:VisualElement name="Body" class="container">
         <ui:Label text="Cryptborn" name="Title"/>
-        <ui:VisualElement name="Buttons" class="container" style="flex-grow: 1;">
+        <ui:VisualElement name="Main" class="container" style="flex-grow: 1;">
             <ui:Button text="Play" name="Play"/>
             <ui:Button text="Quit" tabindex="1" name="Exit"/>
         </ui:VisualElement>

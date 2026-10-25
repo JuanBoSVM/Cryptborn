@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/Levels/SCN_Menu_Main.unity
     guid: b9ef9fea4be97e84b94e1dfcd0b67d15
+  - enabled: 1
+    path: Assets/_Project/Scenes/Testing/SCN_Test_Movement.unity
+    guid: d87674c6039d6c649ad4860db9182b4b
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
