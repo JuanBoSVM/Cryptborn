@@ -1,10 +1,4 @@
 Button {
-    background-image: url("project://database/Assets/_Project/Art/Textures/UI/Borders/TEX_Panel_Border_05.png?fileID=2800000&guid=489fc879b171e1f44a5d0c50c4d7e40e&type=3#TEX_Panel_Border_05");
-    -unity-slice-left: 32;
-    -unity-slice-top: 32;
-    -unity-slice-right: 32;
-    -unity-slice-bottom: 32;
-    -unity-slice-scale: 0.5px;
     -unity-font-definition: resource("Fonts/Font Assets/FA_SDF_KenneySpace");
     -unity-text-generator: advanced;
     -unity-text-auto-size: best-fit 10px 25px;
@@ -20,7 +14,6 @@ Button {
     transition-duration: 0.3s;
     flex-basis: 15%;
     flex-shrink: 0;
-    -unity-background-image-tint-color: rgb(255, 255, 255);
     background-color: rgba(255, 255, 255, 0);
     color: rgb(255, 255, 255);
     padding-top: 2%;
@@ -31,6 +24,16 @@ Button {
     margin-right: 2%;
     margin-bottom: 0%;
     margin-left: 2%;
+}
+
+Button:focus {
+    background-image: url("project://database/Assets/_Project/Art/Textures/UI/Borders/TEX_Panel_Border_07.png?fileID=2800000&guid=84151b53984c2de418a9a5bbe98e71b9&type=3#TEX_Panel_Border_07");
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    -unity-slice-left: 32;
+    -unity-slice-top: 32;
+    -unity-slice-right: 32;
+    -unity-slice-bottom: 32;
+    -unity-slice-scale: 0.5px;
 }
 
 .container {

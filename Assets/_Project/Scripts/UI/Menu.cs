@@ -13,22 +13,29 @@ public abstract class Menu : MonoBehaviour
     protected Image m_LeftSelector;
     protected Image m_RightSelector;
 
-    private void OnButtonFocus(FocusEvent evt)
+    private void ChangeFocusedButton(Button button)
     {
-        Button focusedButton = evt.target as Button;
+        if (button == null)
+        {
+            Debug.LogError("Button is null.");
+            return;
+        }
+
+        button.Focus();
 
         if (m_Selectors.style.opacity.value == 0f) { ShowSelectors(); }
 
-        if (focusedButton != null) { MoveSelectorsToButton(focusedButton); }
+        MoveSelectorsToButton(button);
+    }
+
+    private void OnButtonFocus(FocusEvent evt)
+    {
+        ChangeFocusedButton(evt.target as Button);
     }
 
     private void OnMouseEnterButton(MouseEnterEvent evt)
     {
-        Button hoveredButton = evt.target as Button;
-
-        if (m_Selectors.style.opacity.value == 0f) { ShowSelectors(); }
-
-        if (hoveredButton != null) { MoveSelectorsToButton(hoveredButton); }
+        ChangeFocusedButton(evt.target as Button);
     }
 
     protected Button GetButtonByName(string buttonName)
