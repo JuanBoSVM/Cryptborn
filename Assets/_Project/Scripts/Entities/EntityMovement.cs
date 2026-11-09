@@ -22,7 +22,7 @@ public class EntityMovement : MonoBehaviour
         set { m_Rigidbody.linearVelocity = value; }
     }
 
-    protected virtual void Move(Vector2 direction)
+    protected virtual void MoveTowards(Vector2 direction)
     {
         movementDirection = Vector2.MoveTowards
             (
@@ -58,6 +58,6 @@ public class EntityMovement : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        Move(m_TargetDirection);
+        MoveTowards(m_TargetDirection);
     }
 }
