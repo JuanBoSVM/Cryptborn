@@ -138,7 +138,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SPRT_Dungeon_Wall_Inner_Corner_Bottom_Right
+      name: SPRT_Dungeon_Wall_Inner_Corner_Bottom_Left
       rect:
         serializedVersion: 2
         x: 16
@@ -160,7 +160,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SPRT_Dungeon_Wall_Inner_Top_Middle
+      name: SPRT_Dungeon_Wall_Inner_Bottom_Middle
       rect:
         serializedVersion: 2
         x: 32
@@ -182,7 +182,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SPRT_Dungeon_Wall_Inner_Corner_Bottom_Left
+      name: SPRT_Dungeon_Wall_Inner_Corner_Bottom_Right
       rect:
         serializedVersion: 2
         x: 48
@@ -204,7 +204,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SPRT_Dungeon_Outer_Corner_Top_Left
+      name: SPRT_Dungeon_Wall_Outer_Top_Left
       rect:
         serializedVersion: 2
         x: 64
@@ -226,7 +226,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SPRT_Dungeon_5
+      name: SPRT_Dungeon_Wall_Outer_Top_Right
       rect:
         serializedVersion: 2
         x: 80
@@ -468,7 +468,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SPRT_Dungeon_16
+      name: SPRT_Dungeon_Wall_Inner_Bottom_Left
       rect:
         serializedVersion: 2
         x: 64
@@ -490,7 +490,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SPRT_Dungeon_17
+      name: SPRT_Dungeon_Wall_Inner_Bottom_Right
       rect:
         serializedVersion: 2
         x: 80
@@ -688,7 +688,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SPRT_Dungeon_Wall_Inner_Middle
+      name: SPRT_Dungeon_Wall_Outer_Top_Middle
       rect:
         serializedVersion: 2
         x: 32
@@ -3070,8 +3070,6 @@ TextureImporter:
       SPRT_Dungeon_130: 1180480805
       SPRT_Dungeon_131: 885249138
       SPRT_Dungeon_14: 1248594147
-      SPRT_Dungeon_16: -1885253963
-      SPRT_Dungeon_17: -1227489481
       SPRT_Dungeon_18: 1011423226
       SPRT_Dungeon_19: 1838436432
       SPRT_Dungeon_20: -1280458198
@@ -3097,7 +3095,6 @@ TextureImporter:
       SPRT_Dungeon_45: 1040565977
       SPRT_Dungeon_46: 184566978
       SPRT_Dungeon_47: -155497728
-      SPRT_Dungeon_5: 1644462186
       SPRT_Dungeon_54: -454602025
       SPRT_Dungeon_55: -1867885735
       SPRT_Dungeon_56: -2002826167
@@ -3152,21 +3149,24 @@ TextureImporter:
       SPRT_Dungeon_Floor_Outer_Corner: 1649657135
       SPRT_Dungeon_Floor_Outer_Middle_0: 1703107169
       SPRT_Dungeon_Floor_Outer_Middle_1: 294836675
-      SPRT_Dungeon_Outer_Corner_Top_Left: -236853612
       SPRT_Dungeon_Wall_Inner_0: 1846088854159565172
       SPRT_Dungeon_Wall_Inner_1: 860460985
       SPRT_Dungeon_Wall_Inner_2: 397635400
-      SPRT_Dungeon_Wall_Inner_Corner_Bottom_Left: 894902965
-      SPRT_Dungeon_Wall_Inner_Corner_Bottom_Right: 1595806057570702297
+      SPRT_Dungeon_Wall_Inner_Bottom_Left: -1885253963
+      SPRT_Dungeon_Wall_Inner_Bottom_Middle: 1129143317
+      SPRT_Dungeon_Wall_Inner_Bottom_Right: -1227489481
+      SPRT_Dungeon_Wall_Inner_Corner_Bottom_Left: 1595806057570702297
+      SPRT_Dungeon_Wall_Inner_Corner_Bottom_Right: 894902965
       SPRT_Dungeon_Wall_Inner_Corner_Top_Left: -1056216695
       SPRT_Dungeon_Wall_Inner_Corner_Top_Right: -1401298393
-      SPRT_Dungeon_Wall_Inner_Middle: 310122600
-      SPRT_Dungeon_Wall_Inner_Top_Middle: 1129143317
       SPRT_Dungeon_Wall_Outer_Bottom_Left: 14893903
       SPRT_Dungeon_Wall_Outer_Bottom_Middle: -958264252
       SPRT_Dungeon_Wall_Outer_Bottom_Right: -1355087720
       SPRT_Dungeon_Wall_Outer_Side_Left: -1140597401
       SPRT_Dungeon_Wall_Outer_Side_Right: 1557084179
+      SPRT_Dungeon_Wall_Outer_Top_Left: -236853612
+      SPRT_Dungeon_Wall_Outer_Top_Middle: 310122600
+      SPRT_Dungeon_Wall_Outer_Top_Right: 1644462186
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
