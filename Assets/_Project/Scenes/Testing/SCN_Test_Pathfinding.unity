@@ -313,7 +313,7 @@ TilemapRenderer:
   m_SortingOrder: -1
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
+  m_ChunkCullingBounds: {x: 0.0031446815, y: 0.0031446815, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
@@ -29836,6 +29836,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2363324880105118831, guid: 7349b230a01875a44b5a9f3cebf4c9ba, type: 3}
+      propertyPath: Lens.OrthographicSize
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2363324880105118831, guid: 7349b230a01875a44b5a9f3cebf4c9ba, type: 3}
       propertyPath: Target.TrackingTarget
       value: 
       objectReference: {fileID: 2738861}
@@ -29882,6 +29886,10 @@ PrefabInstance:
     - target: {fileID: 4494443410527223669, guid: 7349b230a01875a44b5a9f3cebf4c9ba, type: 3}
       propertyPath: m_Name
       value: PF_Cameras
+      objectReference: {fileID: 0}
+    - target: {fileID: 8659567069097884229, guid: 7349b230a01875a44b5a9f3cebf4c9ba, type: 3}
+      propertyPath: orthographic size
+      value: 8.4375
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -29971,7 +29979,7 @@ TilemapRenderer:
   m_SortingOrder: -2
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
+  m_ChunkCullingBounds: {x: 0.0031446815, y: 0.0031446815, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
