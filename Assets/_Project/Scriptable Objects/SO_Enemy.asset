@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SO_Enemy
   m_EditorClassIdentifier: Assembly-CSharp::EntityData
   maxSpeed: 8
-  acceleration: 30
-  deceleration: 80
+  acceleration: 20
+  deceleration: 100

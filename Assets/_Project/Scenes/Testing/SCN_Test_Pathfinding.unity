@@ -134,11 +134,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4435232815966851452, guid: df699955605aeae4689f96920a8ef92b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4
+      value: 5.68
       objectReference: {fileID: 0}
     - target: {fileID: 4435232815966851452, guid: df699955605aeae4689f96920a8ef92b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.39
       objectReference: {fileID: 0}
     - target: {fileID: 4435232815966851452, guid: df699955605aeae4689f96920a8ef92b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -29845,11 +29845,11 @@ PrefabInstance:
       objectReference: {fileID: 2738861}
     - target: {fileID: 3495995519689432905, guid: 7349b230a01875a44b5a9f3cebf4c9ba, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.13854
+      value: 5.63
       objectReference: {fileID: 0}
     - target: {fileID: 3495995519689432905, guid: 7349b230a01875a44b5a9f3cebf4c9ba, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.54145
+      value: 13.24
       objectReference: {fileID: 0}
     - target: {fileID: 3495995519689432905, guid: 7349b230a01875a44b5a9f3cebf4c9ba, type: 3}
       propertyPath: m_LocalPosition.z
@@ -29886,6 +29886,22 @@ PrefabInstance:
     - target: {fileID: 4494443410527223669, guid: 7349b230a01875a44b5a9f3cebf4c9ba, type: 3}
       propertyPath: m_Name
       value: PF_Cameras
+      objectReference: {fileID: 0}
+    - target: {fileID: 7862324509060987641, guid: 7349b230a01875a44b5a9f3cebf4c9ba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.049999714
+      objectReference: {fileID: 0}
+    - target: {fileID: 7862324509060987641, guid: 7349b230a01875a44b5a9f3cebf4c9ba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -11.849999
+      objectReference: {fileID: 0}
+    - target: {fileID: 8381410871414821203, guid: 7349b230a01875a44b5a9f3cebf4c9ba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.049999714
+      objectReference: {fileID: 0}
+    - target: {fileID: 8381410871414821203, guid: 7349b230a01875a44b5a9f3cebf4c9ba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -11.849999
       objectReference: {fileID: 0}
     - target: {fileID: 8659567069097884229, guid: 7349b230a01875a44b5a9f3cebf4c9ba, type: 3}
       propertyPath: orthographic size
@@ -33627,7 +33643,7 @@ Transform:
   m_GameObject: {fileID: 1976419343}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9, y: 13, z: 0}
+  m_LocalPosition: {x: -0.52, y: 1.927, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -33704,7 +33720,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.8, y: 0.8}
   m_EdgeRadius: 0
 --- !u!114 &1976419348
 MonoBehaviour:
@@ -33717,8 +33733,9 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff0a6bbef51a6994ea636966f5c7d8c1, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FollowPlayer
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerFollow
   m_EntityData: {fileID: 11400000, guid: ab84daf6e3ed2b54eaed07a07e5c8c89, type: 2}
+  m_UpdatePathInterval: 0.16
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

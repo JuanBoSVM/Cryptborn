@@ -10,13 +10,13 @@ public class EntityMovement : MonoBehaviour
 
     protected Vector2 m_TargetDirection;
 
-    private float maxSpeed { get { return m_EntityData.maxSpeed; } }
+    protected float MaxSpeed { get { return m_EntityData.maxSpeed; } }
 
-    private float acceleration { get { return m_EntityData.acceleration; } }
+    protected float Acceleration { get { return m_EntityData.acceleration; } }
 
-    private float deceleration { get { return m_EntityData.deceleration; } }
+    protected float Deceleration { get { return m_EntityData.deceleration; } }
 
-    private Vector2 movementDirection
+    protected Vector2 MovementDirection
     {
         get { return m_Rigidbody.linearVelocity; }
         set { m_Rigidbody.linearVelocity = value; }
@@ -24,11 +24,11 @@ public class EntityMovement : MonoBehaviour
 
     protected virtual void MoveTowards(Vector2 direction)
     {
-        movementDirection = Vector2.MoveTowards
+        MovementDirection = Vector2.MoveTowards
             (
-            movementDirection,
-            direction * maxSpeed,
-            (direction == Vector2.zero ? deceleration : acceleration) * Time.fixedDeltaTime
+            MovementDirection,
+            direction * MaxSpeed,
+            (direction == Vector2.zero ? Deceleration : Acceleration) * Time.fixedDeltaTime
             );
     }
 
