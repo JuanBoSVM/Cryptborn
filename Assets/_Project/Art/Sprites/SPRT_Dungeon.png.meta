@@ -2369,7 +2369,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_84
+      name: SPRT_Mage
       rect:
         serializedVersion: 2
         x: 0
@@ -3446,6 +3446,7 @@ TextureImporter:
       SPRT_Floor_Corner_Outer: -6361271296530862326
       SPRT_Floor_Top_0: -6140826305895023941
       SPRT_Floor_Top_1: -190942367214245151
+      SPRT_Mage: 5424348670514132440
       SPRT_Wall_Bottom: 1873917168148291061
       SPRT_Wall_Center_0: 8490642196906846815
       SPRT_Wall_Center_1: 1761957491966546689
@@ -3555,7 +3556,6 @@ TextureImporter:
       tilemap_81: -6457282284672588498
       tilemap_82: 666134904684700971
       tilemap_83: -3131756468849351659
-      tilemap_84: 5424348670514132440
       tilemap_85: 2229891254195283420
       tilemap_86: 8571027462325331655
       tilemap_87: -2988324970441796947
