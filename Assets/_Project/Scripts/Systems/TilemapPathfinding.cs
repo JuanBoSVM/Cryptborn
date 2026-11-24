@@ -39,6 +39,8 @@ public class TilemapPathfinding
 
     public int NodeIndex => m_CurrentNodeIndex;
 
+    public bool IsAtEndOfPath => m_CurrentNodeIndex >= m_Path.Count;
+
     public PathNode GetCurrentNode()
     {
         if (m_Path.Count == 0 || m_CurrentNodeIndex >= m_Path.Count)
@@ -122,7 +124,7 @@ public class TilemapPathfinding
         Debug.LogWarning("No path could be found between the supplied tiles.");
     }
 
-    private bool IsWalkable(Vector2Int position)
+    public bool IsWalkable(Vector2Int position)
     {
         Vector3Int position3D = new Vector3Int(position.x, position.y, (int)walkableTiles.transform.position.z);
 
@@ -198,12 +200,15 @@ public class TilemapPathfinding
 #if UNITY_EDITOR
     public void DrawPath()
     {
+        Color startColor = Color.blue;
+        Color endColor = Color.red;
+
         // Draw a line connecting the nodes in the current path
         for (int i = 0; i < m_Path.Count - 1; i++)
         {
             Vector3 start = new Vector3(m_Path[i].position.x + 0.5f, m_Path[i].position.y + 0.5f, 0);
             Vector3 end = new Vector3(m_Path[i + 1].position.x + 0.5f, m_Path[i + 1].position.y + 0.5f, 0);
-            Debug.DrawLine(start, end, Color.green);
+            Debug.DrawLine(start, end, Color.Lerp(startColor, endColor, (float)i / (m_Path.Count - 1)));
         }
     }
 #endif
