@@ -13,6 +13,12 @@ public abstract class Manager<T> : MonoBehaviour where T : Manager<T>
                 m_Instance = FindAnyObjectByType<T>();
             }
 
+            if (m_Instance == null)
+            {
+                GameObject managerObject = new GameObject(typeof(T).Name);
+                m_Instance = managerObject.AddComponent<T>();
+            }
+
             return m_Instance;
         }
     }

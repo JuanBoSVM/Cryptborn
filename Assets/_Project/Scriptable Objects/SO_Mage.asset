@@ -13,6 +13,22 @@ MonoBehaviour:
   m_Name: SO_Mage
   m_EditorClassIdentifier: Assembly-CSharp::EntityData
   m_Sprite: {fileID: 5424348670514132440, guid: fb22f948da44e5d41a925ed2a0adada5, type: 3}
+  m_Walking_SFX:
+  - {fileID: 8300000, guid: 456aa03b6e2f3c64582765d5b0b4bf24, type: 3}
+  - {fileID: 8300000, guid: 00630c1a12099d641b002b6431fa6037, type: 3}
+  - {fileID: 8300000, guid: ee8398cc6f0203b4ba25a3be46affdee, type: 3}
+  - {fileID: 8300000, guid: b86dfcd9c559e4840a6b69e7c0c225c4, type: 3}
+  - {fileID: 8300000, guid: 1bce678a74e5ddd4b8b11b4cd4ffc1e1, type: 3}
+  - {fileID: 8300000, guid: 72ea1bb4913541840985e230fd5f7fdf, type: 3}
+  - {fileID: 8300000, guid: 78587bae2fc277a4e911162d8d49afc6, type: 3}
+  - {fileID: 8300000, guid: 1dcac6d43be132c4a9a138e32f534de5, type: 3}
+  - {fileID: 8300000, guid: 3742a3b0a5d491142a4fe92dabe4003c, type: 3}
+  - {fileID: 8300000, guid: 77a233dc4ccd87f4fbfb1a8a57b9eeb2, type: 3}
+  m_Attacking_SFX: []
+  m_ReceivingDamage_SFX: []
+  m_Dying_SFX: []
+  m_Healing_SFX: []
+  m_Spawning_SFX: []
   maxSpeed: 10
   acceleration: 40
   deceleration: 80

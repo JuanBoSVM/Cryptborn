@@ -14,6 +14,16 @@ public class SpriteAnimation : MonoBehaviour
     private Vector2 MovementDirection => m_Rigidbody?.linearVelocity ?? Vector2.zero;
     private bool IsMoving => MovementDirection != Vector2.zero;
 
+    private void PlayFootstepSound()
+    {
+        AudioClip clip = m_EntityData.GetRandomWalkingSFX();
+
+        if (clip != null)
+        {
+            SoundManager.QueueSound(clip, transform.position);
+        }
+    }
+
     private void FlipSprite()
     {
         if (MovementDirection == Vector2.zero) { return; }

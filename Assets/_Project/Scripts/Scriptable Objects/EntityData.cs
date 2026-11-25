@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "EntityData", menuName = "Scriptable Objects/EntityData")]
 public class EntityData : ScriptableObject
@@ -14,22 +15,22 @@ public class EntityData : ScriptableObject
     [Space(10)]
 
     [SerializeField]
-    public AudioClip m_Walking_SFX;
+    private List<AudioClip> m_Walking_SFX;
 
     [SerializeField]
-    public AudioClip m_Attacking_SFX;
+    private List<AudioClip> m_Attacking_SFX;
 
     [SerializeField]
-    public AudioClip m_ReceivingDamage_SFX;
+    private List<AudioClip> m_ReceivingDamage_SFX;
 
     [SerializeField]
-    public AudioClip m_Dying_SFX;
+    private List<AudioClip> m_Dying_SFX;
 
     [SerializeField]
-    public AudioClip m_Healing_SFX;
+    private List<AudioClip> m_Healing_SFX;
 
     [SerializeField]
-    public AudioClip m_Spawning_SFX;
+    private List<AudioClip> m_Spawning_SFX;
 
     [Header("Movement Settings")]
     [Space(10)]
@@ -64,4 +65,45 @@ public class EntityData : ScriptableObject
     [SerializeField, Min(1f)]
     [Tooltip("The maximum damage this entity can take before being defeated.")]
     public float m_MaxHealth = 10f;
+
+    public AudioClip GetRandomWalkingSFX()
+    {
+        return GetRandomSFX(m_Walking_SFX);
+    }
+
+    public AudioClip GetRandomAttackingSFX()
+    {
+        return GetRandomSFX(m_Attacking_SFX);
+    }
+
+    public AudioClip GetRandomReceivingDamageSFX()
+    {
+        return GetRandomSFX(m_ReceivingDamage_SFX);
+    }
+
+    public AudioClip GetRandomDyingSFX()
+    {
+        return GetRandomSFX(m_Dying_SFX);
+    }
+
+    public AudioClip GetRandomHealingSFX()
+    {
+        return GetRandomSFX(m_Healing_SFX);
+    }
+
+    public AudioClip GetRandomSpawningSFX()
+    {
+        return GetRandomSFX(m_Spawning_SFX);
+    }
+
+    private AudioClip GetRandomSFX(List<AudioClip> sfxList)
+    {
+        if (sfxList == null || sfxList.Count == 0)
+        {
+            Debug.LogWarning($"No sound effects found for {name}.");
+            return null;
+        }
+
+        return sfxList[Random.Range(0, sfxList.Count)];
+    }
 }
