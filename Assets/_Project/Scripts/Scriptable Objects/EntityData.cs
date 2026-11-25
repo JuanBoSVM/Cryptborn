@@ -3,6 +3,34 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EntityData", menuName = "Scriptable Objects/EntityData")]
 public class EntityData : ScriptableObject
 {
+    [Header("Visuals")]
+    [Space(10)]
+
+    [SerializeField]
+    [Tooltip("The sprite used by this entity at runtime.")]
+    public Sprite m_Sprite;
+
+    [Header("Audio")]
+    [Space(10)]
+
+    [SerializeField]
+    public AudioClip m_Walking_SFX;
+
+    [SerializeField]
+    public AudioClip m_Attacking_SFX;
+
+    [SerializeField]
+    public AudioClip m_ReceivingDamage_SFX;
+
+    [SerializeField]
+    public AudioClip m_Dying_SFX;
+
+    [SerializeField]
+    public AudioClip m_Healing_SFX;
+
+    [SerializeField]
+    public AudioClip m_Spawning_SFX;
+
     [Header("Movement Settings")]
     [Space(10)]
 
@@ -17,4 +45,23 @@ public class EntityData : ScriptableObject
     [Min(0f)]
     [Tooltip("The deceleration of the entity (Units per second squared)")]
     public float deceleration = 40f;
+
+    [Header("Combat Settings")]
+    [Space(10)]
+
+    [SerializeField, Min(0f)]
+    [Tooltip("The radius within which this entity can attack.")]
+    public float m_AttackRangeRadius = 1f;
+
+    [SerializeField, Min(0f)]
+    [Tooltip("The damage dealt by this entity per attack.")]
+    public float m_AttackDamage = 1f;
+
+    [SerializeField, Min(0f)]
+    [Tooltip("The number of attacks this entity can perform per second.")]
+    public float m_AttackRate = 1f;
+
+    [SerializeField, Min(1f)]
+    [Tooltip("The maximum damage this entity can take before being defeated.")]
+    public float m_MaxHealth = 10f;
 }

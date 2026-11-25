@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1247484701887984162}
   - component: {fileID: 3714182822698601960}
   - component: {fileID: 3407548502428498406}
+  - component: {fileID: 6342908715362401987}
   m_Layer: 6
   m_Name: PF_Slime
   m_TagString: Untagged
@@ -119,9 +120,24 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff0a6bbef51a6994ea636966f5c7d8c1, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerFollow
+  m_EditorClassIdentifier: Assembly-CSharp::AIMovement
   m_EntityData: {fileID: 11400000, guid: ab84daf6e3ed2b54eaed07a07e5c8c89, type: 2}
+  m_Mode: 0
   m_UpdatePathInterval: 0.16
+  m_State: 0
+--- !u!114 &6342908715362401987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637347651662925975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 219f700850fc4372a520b70680f97381, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyCombat
+  m_EntityData: {fileID: 11400000, guid: ab84daf6e3ed2b54eaed07a07e5c8c89, type: 2}
 --- !u!1 &5141928127843282732
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,3 +265,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3fe2a6b77dae15499accbf0c261530d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpriteAnimation
+  m_EntityData: {fileID: 11400000, guid: ab84daf6e3ed2b54eaed07a07e5c8c89, type: 2}

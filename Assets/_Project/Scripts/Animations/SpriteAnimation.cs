@@ -4,6 +4,9 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class SpriteAnimation : MonoBehaviour
 {
+    [SerializeField]
+    private EntityData m_EntityData;
+
     private Rigidbody2D m_Rigidbody;
     private Animator m_Animator;
     private SpriteRenderer m_SpriteRenderer;
@@ -43,6 +46,11 @@ public class SpriteAnimation : MonoBehaviour
         if (m_Rigidbody == null)
         {
             Debug.LogError($"No Rigidbody2D found in parent of {gameObject.name}.");
+        }
+
+        if (m_EntityData != null && m_EntityData.m_Sprite != null)
+        {
+            m_SpriteRenderer.sprite = m_EntityData.m_Sprite;
         }
     }
 

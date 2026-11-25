@@ -2,6 +2,12 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
 
+public enum PathSearchOrder
+{
+    Clockwise,
+    CounterClockwise
+}
+
 public class TilemapPathfinding
 {
     private static readonly List<Vector2Int> m_Directions = new List<Vector2Int>
@@ -23,6 +29,7 @@ public class TilemapPathfinding
 
     private Vector2Int m_PreviousStartPosition = Vector2Int.zero;
     private Vector2Int m_PreviousEndPosition = Vector2Int.zero;
+    private PathSearchOrder m_PreviousSearchOrder = PathSearchOrder.Clockwise;
 
     private int m_CurrentNodeIndex = 0;
     private PathNode m_CurrentNode;
@@ -57,13 +64,40 @@ public class TilemapPathfinding
         return GetCurrentNode();
     }
 
+    public PathNode GetFurthestVisibleNode(Vector2Int from)
+    {
+        if (IsAtEndOfPath) { return null; }
+
+        int furthestVisibleIndex = m_CurrentNodeIndex;
+        for (int i = m_CurrentNodeIndex + 1; i < m_Path.Count; i++)
+        {
+            if (HasLineOfSight(from, m_Path[i].position))
+            {
+                furthestVisibleIndex = i;
+            }
+        }
+
+        return m_Path[furthestVisibleIndex];
+    }
+
+    public PathNode AdvancePastNode(PathNode node)
+    {
+        int nodeIndex = m_Path.IndexOf(node);
+        if (nodeIndex >= m_CurrentNodeIndex)
+        {
+            m_CurrentNodeIndex = nodeIndex + 1;
+        }
+
+        return GetCurrentNode();
+    }
+
     public PathNode GoBackToPreviousNode()
     {
         --m_CurrentNodeIndex;
         return GetCurrentNode();
     }
 
-    private bool CanGeneratePath(Vector2Int start, Vector2Int end)
+    private bool CanGeneratePath(Vector2Int start, Vector2Int end, bool logWarnings)
     {
         if (walkableTiles == null)
         {
@@ -73,22 +107,42 @@ public class TilemapPathfinding
 
         if (!IsWalkable(start) || !IsWalkable(end))
         {
-            Debug.LogWarning("Cannot generate a path because the start or end tile is not walkable.");
+            if (logWarnings)
+            {
+                Debug.LogWarning("Cannot generate a path because the start or end tile is not walkable.");
+            }
             return false;
         }
 
         return true;
     }
 
-    public void GeneratePath(Vector2Int start, Vector2Int end)
+    public bool GeneratePath(
+        Vector2Int start,
+        Vector2Int end,
+        bool logWarnings = true,
+        PathSearchOrder searchOrder = PathSearchOrder.Clockwise)
     {
-        if (!CanGeneratePath(start, end)) { return; }
-        if (start == m_PreviousStartPosition && end == m_PreviousEndPosition) { return; }
+        if (!CanGeneratePath(start, end, logWarnings))
+        {
+            m_Path.Clear();
+            m_CurrentNodeIndex = 0;
+            return false;
+        }
+
+        if (start == m_PreviousStartPosition
+            && end == m_PreviousEndPosition
+            && searchOrder == m_PreviousSearchOrder
+            && m_Path.Count > 0)
+        {
+            return true;
+        }
 
         m_PreviousStartPosition = start;
         m_PreviousEndPosition = end;
-
+        m_PreviousSearchOrder = searchOrder;
         m_Path.Clear();
+        m_CurrentNodeIndex = 0;
 
         m_OpenNodes.Clear();
         m_ClosedNodes.Clear();
@@ -115,13 +169,14 @@ public class TilemapPathfinding
             if (m_CurrentNode.position == end)
             {
                 SaveCurrentPath();
-                return;
+                return true;
             }
 
-            AddNeighborsToOpenList(m_CurrentNode, end);
+            AddNeighborsToOpenList(m_CurrentNode, end, searchOrder);
         }
 
-        Debug.LogWarning("No path could be found between the supplied tiles.");
+        if (logWarnings) { Debug.LogWarning("No path could be found between the supplied tiles."); }
+        return false;
     }
 
     public bool IsWalkable(Vector2Int position)
@@ -130,6 +185,81 @@ public class TilemapPathfinding
 
         return walkableTiles.HasTile(position3D)
             && (unwalkableTiles == null || !unwalkableTiles.HasTile(position3D));
+    }
+
+    public Vector2 GetWallAvoidance(Vector2 position, float radius)
+    {
+        if (walkableTiles == null || radius <= 0f) { return Vector2.zero; }
+
+        Vector2Int currentCell = new Vector2Int(Mathf.FloorToInt(position.x), Mathf.FloorToInt(position.y));
+        Vector2[] directions =
+        {
+            Vector2.up,
+            new Vector2(1f, 1f).normalized,
+            Vector2.right,
+            new Vector2(1f, -1f).normalized,
+            Vector2.down,
+            new Vector2(-1f, -1f).normalized,
+            Vector2.left,
+            new Vector2(-1f, 1f).normalized
+        };
+        const float sampleSpacing = 0.2f;
+        Vector2 avoidance = Vector2.zero;
+
+        foreach (Vector2 direction in directions)
+        {
+            for (float distance = sampleSpacing; distance <= radius; distance += sampleSpacing)
+            {
+                Vector2 samplePosition = position + direction * distance;
+                Vector2Int sampleCell = new Vector2Int(Mathf.FloorToInt(samplePosition.x), Mathf.FloorToInt(samplePosition.y));
+                if (sampleCell == currentCell || IsWalkable(sampleCell)) { continue; }
+
+                float proximity = 1f - distance / radius;
+                avoidance -= direction * proximity * proximity;
+                break;
+            }
+        }
+
+        return avoidance;
+    }
+
+    private bool HasLineOfSight(Vector2Int start, Vector2Int end)
+    {
+        int x = start.x;
+        int y = start.y;
+        int deltaX = Mathf.Abs(end.x - start.x);
+        int stepX = start.x < end.x ? 1 : -1;
+        int deltaY = -Mathf.Abs(end.y - start.y);
+        int stepY = start.y < end.y ? 1 : -1;
+        int error = deltaX + deltaY;
+
+        while (true)
+        {
+            if (!IsWalkable(new Vector2Int(x, y))) { return false; }
+            if (x == end.x && y == end.y) { return true; }
+
+            int doubledError = 2 * error;
+            bool moveX = x != end.x && doubledError >= deltaY;
+            bool moveY = y != end.y && doubledError <= deltaX;
+
+            if (moveX && moveY
+                && (!IsWalkable(new Vector2Int(x + stepX, y)) || !IsWalkable(new Vector2Int(x, y + stepY))))
+            {
+                return false;
+            }
+
+            if (moveX)
+            {
+                error += deltaY;
+                x += stepX;
+            }
+
+            if (moveY)
+            {
+                error += deltaX;
+                y += stepY;
+            }
+        }
     }
 
     private bool AlreadyVisited(Vector2Int position)
@@ -173,12 +303,15 @@ public class TilemapPathfinding
         }
     }
 
-    private void AddNeighborsToOpenList(PathNode currentNode, Vector2Int end)
+    private void AddNeighborsToOpenList(PathNode currentNode, Vector2Int end, PathSearchOrder searchOrder)
     {
-        // Add the neighboring nodes to the open list if they are walkable and not already visited
-        foreach (Vector2Int direction in m_Directions)
+        // Add the neighboring nodes to the open list if they are walkable and not already visited.
+        for (int i = 0; i < m_Directions.Count; i++)
         {
-            Vector2Int neighborPosition = currentNode.position + direction;
+            int directionIndex = searchOrder == PathSearchOrder.Clockwise
+                ? i
+                : (m_Directions.Count - i) % m_Directions.Count;
+            Vector2Int neighborPosition = currentNode.position + m_Directions[directionIndex];
 
             // Skip the neighbor if it's already visited or not walkable
             if (AlreadyVisited(neighborPosition) || !IsWalkable(neighborPosition)) { continue; }

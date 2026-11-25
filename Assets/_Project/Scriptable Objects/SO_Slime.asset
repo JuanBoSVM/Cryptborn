@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abfa5a4c6faf9af4caccd89299469f6a, type: 3}
+  m_Name: SO_Slime
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  m_Sprite: {fileID: -5664050802494629814, guid: fb22f948da44e5d41a925ed2a0adada5, type: 3}
+  maxSpeed: 5
+  acceleration: 20
+  deceleration: 100
+  m_DetectionDistance: 7.5
+  m_AttentionDistance: 15
+  m_WanderDistance: 3
+  m_WanderSpeedMultiplier: 0.5
+  m_WanderWaitDuration: 1
+  m_AttackRangeRadius: 1
+  m_AttackDamage: 1
+  m_AttackRate: 1
+  m_MaxHealth: 10

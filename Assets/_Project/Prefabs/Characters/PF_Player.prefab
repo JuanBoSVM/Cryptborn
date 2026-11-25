@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 566455989431114757}
   - component: {fileID: 781207375172068261}
   - component: {fileID: 9179401444340645600}
+  - component: {fileID: 7384910532286552105}
   m_Layer: 0
   m_Name: PF_Player
   m_TagString: Player
@@ -120,6 +121,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5778c70021dd5a14db88ac25e5c4be4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TopDownController
+  m_EntityData: {fileID: 11400000, guid: 0882df7637f6c8e41b70a0dfa97ba254, type: 2}
+--- !u!114 &7384910532286552105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4754306837372242521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eefcbb76da64f31867b7002ac05d010, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCombat
   m_EntityData: {fileID: 11400000, guid: 0882df7637f6c8e41b70a0dfa97ba254, type: 2}
 --- !u!1 &7440906835928969808
 GameObject:
@@ -248,3 +262,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3fe2a6b77dae15499accbf0c261530d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpriteAnimation
+  m_EntityData: {fileID: 11400000, guid: 0882df7637f6c8e41b70a0dfa97ba254, type: 2}
