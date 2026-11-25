@@ -719,7 +719,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_9
+      name: SPRT_Exit
       rect:
         serializedVersion: 2
         x: 153
@@ -2721,7 +2721,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_100
+      name: SPRT_Hag
       rect:
         serializedVersion: 2
         x: 68
@@ -2919,7 +2919,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_109
+      name: SPRT_Cyclops
       rect:
         serializedVersion: 2
         x: 17
@@ -3440,12 +3440,15 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":16.0,"y":16.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":1.0,"y":1.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
+      SPRT_Cyclops: 8913244904277133699
+      SPRT_Exit: 3400160013776356846
       SPRT_Floor_Center_0: 5997434355426740714
       SPRT_Floor_Center_1: 3212541487564439254
       SPRT_Floor_Corner_Inner: 403813026361821555
       SPRT_Floor_Corner_Outer: -6361271296530862326
       SPRT_Floor_Top_0: -6140826305895023941
       SPRT_Floor_Top_1: -190942367214245151
+      SPRT_Hag: -8592424096107761443
       SPRT_Mage: 5424348670514132440
       SPRT_Slime: -5664050802494629814
       SPRT_Wall_Bottom: 1873917168148291061
@@ -3464,7 +3467,6 @@ TextureImporter:
       SPRT_Wall_Side: -2455287069041890485
       SPRT_Wall_Top: -1825608592083352178
       tilemap_10: -8435285650344880516
-      tilemap_100: -8592424096107761443
       tilemap_101: -4146658962222183008
       tilemap_102: -1553117273407126458
       tilemap_103: -4716602535706096335
@@ -3472,7 +3474,6 @@ TextureImporter:
       tilemap_105: 1731697443031409149
       tilemap_106: 6295474923448991246
       tilemap_107: -3642419863204866038
-      tilemap_109: 8913244904277133699
       tilemap_11: 2376107565742220442
       tilemap_110: 7620405453212275206
       tilemap_111: 2702405904602438015
@@ -3561,7 +3562,6 @@ TextureImporter:
       tilemap_87: -2988324970441796947
       tilemap_88: 3421245086849777472
       tilemap_89: 2955584848549355173
-      tilemap_9: 3400160013776356846
       tilemap_90: 6992147927975329872
       tilemap_91: 2316366620572707740
       tilemap_92: -3246565788825186472

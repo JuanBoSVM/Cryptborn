@@ -9,11 +9,20 @@ EditorBuildSettings:
     path: Assets/_Project/Scenes/Levels/SCN_Menu_Main.unity
     guid: b9ef9fea4be97e84b94e1dfcd0b67d15
   - enabled: 1
-    path: Assets/_Project/Scenes/Testing/SCN_Test_Pathfinding.unity
-    guid: 54fceba58d3527441a46ffefe70c3197
+    path: Assets/_Project/Scenes/Levels/SCN_Level_1.unity
+    guid: 6f70b980ae5d1bb46a1e628c7ec5e298
   - enabled: 1
-    path: Assets/_Project/Scenes/Testing/SCN_Test_Movement.unity
-    guid: d87674c6039d6c649ad4860db9182b4b
+    path: Assets/_Project/Scenes/Levels/SCN_Level_2.unity
+    guid: a83e41e9c9b0d88489b1502878323060
+  - enabled: 1
+    path: Assets/_Project/Scenes/Levels/SCN_Level_3.unity
+    guid: 2f159570b434d0a45936cddc2fbb2986
+  - enabled: 1
+    path: Assets/_Project/Scenes/Levels/SCN_Level_4.unity
+    guid: 3baac7e59fa96b34fa5e7998568b9bb1
+  - enabled: 1
+    path: Assets/_Project/Scenes/Levels/SCN_Level_5.unity
+    guid: a50eeb693ffbf3049a68b98676ade649
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

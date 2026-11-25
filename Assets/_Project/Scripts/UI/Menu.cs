@@ -13,6 +13,21 @@ public abstract class Menu : MonoBehaviour
     protected Image m_LeftSelector;
     protected Image m_RightSelector;
 
+    private Button m_LastSelectionSoundButton;
+
+    private void PlayRandomSelectionSound(Button button)
+    {
+        if (button == null || button == m_LastSelectionSoundButton) { return; }
+
+        m_LastSelectionSoundButton = button;
+        SoundManager.QueueSound(SoundManager.GetRandomButtonSelectSound(), Vector3.zero);
+    }
+
+    private void PlayRandomClickSound()
+    {
+        SoundManager.QueueSound(SoundManager.GetRandomButtonClickSound(), Vector3.zero);
+    }
+
     private void ChangeFocusedButton(Button button)
     {
         if (button == null)
@@ -30,12 +45,16 @@ public abstract class Menu : MonoBehaviour
 
     private void OnButtonFocus(FocusEvent evt)
     {
-        ChangeFocusedButton(evt.target as Button);
+        Button button = evt.target as Button;
+        PlayRandomSelectionSound(button);
+        ChangeFocusedButton(button);
     }
 
     private void OnMouseEnterButton(MouseEnterEvent evt)
     {
-        ChangeFocusedButton(evt.target as Button);
+        Button button = evt.target as Button;
+        PlayRandomSelectionSound(button);
+        ChangeFocusedButton(button);
     }
 
     protected Button GetButtonByName(string buttonName)
@@ -175,6 +194,7 @@ public abstract class Menu : MonoBehaviour
             if (button == null) { continue; }
             button.RegisterCallback<FocusEvent>(OnButtonFocus);
             button.RegisterCallback<MouseEnterEvent>(OnMouseEnterButton);
+            button.clicked += PlayRandomClickSound;
         }
     }
 
@@ -187,6 +207,7 @@ public abstract class Menu : MonoBehaviour
             if (button == null) continue;
             button.UnregisterCallback<FocusEvent>(OnButtonFocus);
             button.UnregisterCallback<MouseEnterEvent>(OnMouseEnterButton);
+            button.clicked -= PlayRandomClickSound;
         }
     }
 

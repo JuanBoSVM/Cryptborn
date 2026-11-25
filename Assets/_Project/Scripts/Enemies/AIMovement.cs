@@ -408,12 +408,15 @@ public class AIMovement : EntityMovement
         DrawDebugCircle(m_EnemyData.m_AttackRangeRadius, Color.yellow);
 #endif
 
-        Vector2 wallAvoidance = m_Pathfinding.GetWallAvoidance(transform.position, 1.5f);
-        if (m_State != AIMovementState.Attacking && wallAvoidance.sqrMagnitude > 0.01f)
+        if (m_EnemyData != null && m_State != AIMovementState.Attacking)
         {
-            float avoidanceStrength = Mathf.Clamp01(wallAvoidance.magnitude * 2f);
-            Vector2 avoidanceDirection = wallAvoidance.normalized;
-            m_TargetDirection = Vector2.Lerp(m_TargetDirection, avoidanceDirection, avoidanceStrength).normalized;
+            Vector2 wallAvoidance = m_Pathfinding.GetWallAvoidance(transform.position, 1.5f);
+            if (wallAvoidance.sqrMagnitude > 0.01f)
+            {
+                float avoidanceStrength = Mathf.Clamp01(wallAvoidance.magnitude * 2f);
+                Vector2 avoidanceDirection = wallAvoidance.normalized;
+                m_TargetDirection = Vector2.Lerp(m_TargetDirection, avoidanceDirection, avoidanceStrength).normalized;
+            }
         }
 
         base.FixedUpdate();
