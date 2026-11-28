@@ -23,9 +23,18 @@ public class SoundManager : Manager<SoundManager>
     [SerializeField]
     private List<AudioClip> m_ButtonSelectSFX = new List<AudioClip>();
 
+    private const string MasterVolumeKey = "Cryptborn.Audio.MasterVolume";
+    private const string MusicVolumeKey = "Cryptborn.Audio.MusicVolume";
+    private const string SFXVolumeKey = "Cryptborn.Audio.SFXVolume";
+
     private int m_CurrentMusicId = -1;
+    private float m_MasterVolume = 1f;
     private float m_SFXVolume = 1f;
     private float m_MusicVolume = 1f;
+
+    public static float MasterVolume => Instance.m_MasterVolume;
+    public static float MusicVolume => Instance.m_MusicVolume;
+    public static float SFXVolume => Instance.m_SFXVolume;
 
     private static float RandomPitch => Random.Range(0.8f, 1.2f);
 
@@ -54,6 +63,37 @@ public class SoundManager : Manager<SoundManager>
         }
 
         Instance.m_SoundQueue.Enqueue(new SoundRequest(source, position));
+    }
+
+    public static void SetMasterVolume(float volume)
+    {
+        SoundManager manager = Instance;
+        manager.m_MasterVolume = Mathf.Clamp01(volume);
+        AudioListener.volume = manager.m_MasterVolume;
+        PlayerPrefs.SetFloat(MasterVolumeKey, manager.m_MasterVolume);
+        PlayerPrefs.Save();
+    }
+
+    public static void SetMusicVolume(float volume)
+    {
+        SoundManager manager = Instance;
+        manager.m_MusicVolume = Mathf.Clamp01(volume);
+        if (manager.m_MusicFadeCoroutine == null)
+        {
+            if (manager.m_MusicAudioSource != null) { manager.m_MusicAudioSource.volume = manager.m_MusicVolume; }
+            if (manager.m_SecondaryMusicAudioSource != null) { manager.m_SecondaryMusicAudioSource.volume = manager.m_MusicVolume; }
+        }
+
+        PlayerPrefs.SetFloat(MusicVolumeKey, manager.m_MusicVolume);
+        PlayerPrefs.Save();
+    }
+
+    public static void SetSFXVolume(float volume)
+    {
+        SoundManager manager = Instance;
+        manager.m_SFXVolume = Mathf.Clamp01(volume);
+        PlayerPrefs.SetFloat(SFXVolumeKey, manager.m_SFXVolume);
+        PlayerPrefs.Save();
     }
 
     public static AudioClip GetRandomUISound()
@@ -253,6 +293,11 @@ public class SoundManager : Manager<SoundManager>
     protected override void Awake()
     {
         base.Awake();
+
+        m_MasterVolume = Mathf.Clamp01(PlayerPrefs.GetFloat(MasterVolumeKey, 1f));
+        m_MusicVolume = Mathf.Clamp01(PlayerPrefs.GetFloat(MusicVolumeKey, 1f));
+        m_SFXVolume = Mathf.Clamp01(PlayerPrefs.GetFloat(SFXVolumeKey, 1f));
+        AudioListener.volume = m_MasterVolume;
 
         GameObject sfxObject = new GameObject("SFX");
         sfxObject.transform.SetParent(transform, false);

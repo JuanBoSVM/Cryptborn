@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MenuManager : Manager<MenuManager>
 {
@@ -6,6 +7,12 @@ public class MenuManager : Manager<MenuManager>
 
     private Menu[] m_Menus;
     private Menu m_CurrentMenu;
+    private Menu m_PreviousMenu;
+    private InputAction m_PauseAction;
+    private float m_TimeScaleBeforePause;
+    private bool m_IsPaused;
+
+    public bool IsPaused => m_IsPaused;
 
     protected override void Awake()
     {
@@ -16,6 +23,11 @@ public class MenuManager : Manager<MenuManager>
         }
 
         m_Menus = GetComponentsInChildren<Menu>(true);
+        m_PauseAction = InputSystem.actions.FindAction("UI/Pause");
+        if (m_PauseAction == null)
+        {
+            Debug.LogError("UI/Pause input action was not found.", this);
+        }
 
         if (m_InitialMenu == null || !IsManagedMenu(m_InitialMenu))
         {
@@ -32,6 +44,64 @@ public class MenuManager : Manager<MenuManager>
         }
 
         ShowMenu(m_InitialMenu);
+    }
+
+    private void OnEnable()
+    {
+        if (m_PauseAction == null) { return; }
+
+        m_PauseAction.performed += OnPausePerformed;
+        m_PauseAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        if (m_PauseAction == null) { return; }
+
+        m_PauseAction.performed -= OnPausePerformed;
+    }
+
+    private void OnPausePerformed(InputAction.CallbackContext context)
+    {
+        if (m_IsPaused)
+        {
+            ResumeGame();
+            return;
+        }
+
+        if (m_CurrentMenu != null) { return; }
+
+        PauseGame();
+    }
+
+    private void PauseGame()
+    {
+        PauseMenu pauseMenu = null;
+        foreach (Menu menu in m_Menus)
+        {
+            pauseMenu = menu as PauseMenu;
+            if (pauseMenu != null) { break; }
+        }
+
+        if (pauseMenu == null)
+        {
+            Debug.LogError("Cannot pause because no PauseMenu is a child of the MenuManager.", this);
+            return;
+        }
+
+        m_TimeScaleBeforePause = Time.timeScale;
+        m_IsPaused = true;
+        Time.timeScale = 0f;
+        ShowMenu(pauseMenu);
+    }
+
+    public void ResumeGame()
+    {
+        if (!m_IsPaused) { return; }
+
+        m_IsPaused = false;
+        Time.timeScale = m_TimeScaleBeforePause;
+        HideCurrentMenu();
     }
 
     public void ShowMenu(Menu menu)
@@ -55,6 +125,7 @@ public class MenuManager : Manager<MenuManager>
 
         if (m_CurrentMenu != null)
         {
+            m_PreviousMenu = m_CurrentMenu;
             m_CurrentMenu.gameObject.SetActive(false);
         }
 
@@ -76,15 +147,26 @@ public class MenuManager : Manager<MenuManager>
         Debug.LogError($"No child menu of type '{typeof(T).Name}' was found.", this);
     }
 
-    public void HideCurrentMenu()
+    public void ShowPreviousMenu()
     {
-        if (m_CurrentMenu == null)
+        if (m_PreviousMenu == null)
         {
+            Debug.LogError("No previous menu is available to show.", this);
             return;
         }
 
-        m_CurrentMenu.gameObject.SetActive(false);
-        m_CurrentMenu = null;
+        ShowMenu(m_PreviousMenu);
+    }
+
+    public void HideCurrentMenu()
+    {
+        if (m_CurrentMenu != null)
+        {
+            m_CurrentMenu.gameObject.SetActive(false);
+            m_CurrentMenu = null;
+        }
+
+        m_PreviousMenu = null;
     }
 
     private bool IsManagedMenu(Menu menu)

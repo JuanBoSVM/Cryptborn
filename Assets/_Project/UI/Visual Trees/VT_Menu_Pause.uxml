@@ -1,0 +1,15 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Style src="project://database/Assets/_Project/UI/Styles/USS_Menu.uss?fileID=7433441132597879392&amp;guid=0ef0e218ed7bf9e448f5202d412219df&amp;type=3#USS_Menu" />
+    <ui:VisualElement name="Body" class="container">
+        <ui:Label text="Paused" name="Title" />
+        <ui:VisualElement name="Main" class="container" style="flex-grow: 1;">
+            <ui:Button text="Continue" name="Continue" />
+            <ui:Button text="Settings" name="Settings" />
+            <ui:Button text="Quit" name="Quit" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Selectors">
+            <ui:Image name="Left" source="project://database/Assets/_Project/Art/Textures/UI/Dividers/TEX_Divider_Fade_00.png?fileID=2800000&amp;guid=d8f2816538c346f4e845bb68ff6ba1c7&amp;type=3#TEX_Divider_Fade_00" />
+            <ui:Image name="Right" source="project://database/Assets/_Project/Art/Textures/UI/Dividers/TEX_Divider_Fade_00.png?fileID=2800000&amp;guid=d8f2816538c346f4e845bb68ff6ba1c7&amp;type=3#TEX_Divider_Fade_00" style="scale: -1 1;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

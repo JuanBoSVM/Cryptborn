@@ -4,11 +4,13 @@ using UnityEngine.UIElements;
 public class MainMenu : Menu
 {
     Button m_PlayButton;
+    Button m_SettingsButton;
     Button m_ExitButton;
 
     private void GetComponents()
     {
         m_PlayButton = GetButtonByName("Play");
+        m_SettingsButton = GetButtonByName("Settings");
         m_ExitButton = GetButtonByName("Exit");
     }
 
@@ -19,6 +21,12 @@ public class MainMenu : Menu
         if (m_PlayButton == null)
         {
             Debug.LogError("Play button is missing in the MainMenu.");
+            allComponentsValid = false;
+        }
+
+        if (m_SettingsButton == null)
+        {
+            Debug.LogError("Settings button is missing in the MainMenu.");
             allComponentsValid = false;
         }
 
@@ -34,12 +42,14 @@ public class MainMenu : Menu
     private void LinkButtonEvents()
     {
         m_PlayButton.clicked += OnPlayButtonClicked;
+        m_SettingsButton.clicked += OnSettingsButtonClicked;
         m_ExitButton.clicked += OnExitButtonClicked;
     }
 
     private void UnLinkButtonEvents()
     {
         m_PlayButton.clicked -= OnPlayButtonClicked;
+        m_SettingsButton.clicked -= OnSettingsButtonClicked;
         m_ExitButton.clicked -= OnExitButtonClicked;
     }
 
@@ -49,9 +59,21 @@ public class MainMenu : Menu
         GameManager.StartGame();
     }
 
+    private void OnSettingsButtonClicked()
+    {
+        MenuManager.Instance.ShowMenu<SettingsMenu>();
+    }
+
     private void OnExitButtonClicked()
     {
         GameManager.ExitGame();
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        GetComponents();
+        if (ValidateComponents()) { LinkButtonEvents(); }
     }
 
     protected override void OnDisable()
@@ -64,10 +86,6 @@ public class MainMenu : Menu
     {
         base.Awake();
         GetComponents();
-        if (ValidateComponents())
-        {
-            LinkButtonEvents();
-        }
     }
 
     protected override void Start()

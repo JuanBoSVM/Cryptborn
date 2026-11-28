@@ -4,6 +4,7 @@
         <ui:Label text="Cryptborn" name="Title"/>
         <ui:VisualElement name="Main" class="container" style="flex-grow: 1;">
             <ui:Button text="Play" name="Play"/>
+            <ui:Button text="Settings" name="Settings"/>
             <ui:Button text="Quit" tabindex="1" name="Exit"/>
         </ui:VisualElement>
         <ui:VisualElement name="Selectors">

@@ -1,0 +1,31 @@
+#Main {
+    align-items: stretch;
+    justify-content: space-evenly;
+    padding-left: 12%;
+    padding-right: 12%;
+}
+
+.settings-row {
+    flex-direction: row;
+    align-items: center;
+    height: 18%;
+    flex-shrink: 0;
+}
+
+.settings-label {
+    width: 35%;
+    color: rgb(255, 255, 255);
+    -unity-font-definition: resource("Fonts/Font Assets/FA_SDF_KenneySpace");
+    -unity-text-generator: advanced;
+    -unity-text-auto-size: best-fit 10px 24px;
+}
+
+.settings-slider {
+    flex-grow: 1;
+}
+
+#Back {
+    width: 50%;
+    height: 16%;
+    align-self: center;
+}

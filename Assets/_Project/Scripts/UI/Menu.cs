@@ -211,6 +211,12 @@ public abstract class Menu : MonoBehaviour
         }
     }
 
+    protected virtual void OnEnable()
+    {
+        GetBaseComponents();
+        if (ValidateBaseComponents()) { LinkBaseButtonEvents(); }
+    }
+
     protected virtual void OnDisable()
     {
         if (ValidateBaseComponents()) { UnLinkBaseButtonEvents(); }
@@ -219,8 +225,6 @@ public abstract class Menu : MonoBehaviour
     protected virtual void Awake()
     {
         GetBaseComponents();
-        if (ValidateBaseComponents()) { LinkBaseButtonEvents(); }
-
     }
 
     protected virtual void Start()
