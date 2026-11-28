@@ -45,6 +45,7 @@ public class MainMenu : Menu
 
     private void OnPlayButtonClicked()
     {
+        MenuManager.Instance.HideCurrentMenu();
         GameManager.StartGame();
     }
 

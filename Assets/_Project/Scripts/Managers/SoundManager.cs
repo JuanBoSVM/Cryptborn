@@ -1,14 +1,20 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
 public class SoundManager : Manager<SoundManager>
 {
-    private AudioSource m_AudioSource;
+    private AudioSource m_SFXAudioSource;
+    private AudioSource m_MusicAudioSource;
+    private AudioSource m_SecondaryMusicAudioSource;
+    private Coroutine m_MusicFadeCoroutine;
 
     [Header("Background Music")]
     [SerializeField, Tooltip("Track IDs are the clips' indices in this list.")]
     private List<AudioClip> m_BackgroundMusic = new List<AudioClip>();
+
+    [SerializeField, Min(0f)]
+    private float m_MusicCrossfadeDuration = 1f;
 
     [Header("UI Sounds")]
     [SerializeField]
@@ -80,20 +86,42 @@ public class SoundManager : Manager<SoundManager>
             return;
         }
 
-        if (Instance.m_AudioSource == null)
+        if (Instance.m_MusicAudioSource == null || Instance.m_SecondaryMusicAudioSource == null)
         {
-            Debug.LogError("Cannot start music because the SoundManager has no AudioSource.");
+            Debug.LogError("Cannot start music because the SoundManager's Music AudioSources are not initialized.");
             return;
         }
 
-        if (Instance.m_CurrentMusicId == musicId && Instance.m_AudioSource.isPlaying) { return; }
+        if (Instance.m_CurrentMusicId == musicId &&
+            ((Instance.m_MusicAudioSource.isPlaying && Instance.m_MusicAudioSource.clip == music) ||
+             (Instance.m_SecondaryMusicAudioSource.isPlaying && Instance.m_SecondaryMusicAudioSource.clip == music)))
+        {
+            return;
+        }
 
-        Instance.m_AudioSource.clip = music;
-        Instance.m_AudioSource.loop = true;
-        Instance.m_AudioSource.volume = Instance.m_MusicVolume;
-        Instance.m_AudioSource.pitch = 1f;
-        Instance.m_AudioSource.Play();
+        if (Instance.m_MusicFadeCoroutine != null)
+        {
+            Instance.StopCoroutine(Instance.m_MusicFadeCoroutine);
+            Instance.m_MusicFadeCoroutine = null;
+
+            if (Instance.m_SecondaryMusicAudioSource.isPlaying &&
+                (!Instance.m_MusicAudioSource.isPlaying || Instance.m_SecondaryMusicAudioSource.volume > Instance.m_MusicAudioSource.volume))
+            {
+                AudioSource previousSource = Instance.m_MusicAudioSource;
+                Instance.m_MusicAudioSource = Instance.m_SecondaryMusicAudioSource;
+                Instance.m_SecondaryMusicAudioSource = previousSource;
+            }
+
+            Instance.m_SecondaryMusicAudioSource.Stop();
+            Instance.m_SecondaryMusicAudioSource.clip = null;
+            Instance.m_SecondaryMusicAudioSource.loop = false;
+            Instance.m_MusicAudioSource.volume = Instance.m_MusicVolume;
+            Instance.m_SecondaryMusicAudioSource.volume = Instance.m_MusicVolume;
+        }
+
         Instance.m_CurrentMusicId = musicId;
+        Instance.m_MusicFadeCoroutine = Instance.StartCoroutine(
+            Instance.CrossfadeMusic(Instance.m_MusicAudioSource, Instance.m_SecondaryMusicAudioSource, music));
     }
 
     public static void StopMusic(int musicId)
@@ -106,14 +134,67 @@ public class SoundManager : Manager<SoundManager>
 
         if (Instance.m_CurrentMusicId != musicId) { return; }
 
-        if (Instance.m_AudioSource != null)
+        if (Instance.m_MusicFadeCoroutine != null)
         {
-            Instance.m_AudioSource.Stop();
-            Instance.m_AudioSource.clip = null;
-            Instance.m_AudioSource.loop = false;
+            Instance.StopCoroutine(Instance.m_MusicFadeCoroutine);
+            Instance.m_MusicFadeCoroutine = null;
         }
 
+        Instance.StopMusicSource(Instance.m_MusicAudioSource);
+        Instance.StopMusicSource(Instance.m_SecondaryMusicAudioSource);
         Instance.m_CurrentMusicId = -1;
+    }
+
+    private IEnumerator CrossfadeMusic(AudioSource outgoingSource, AudioSource incomingSource, AudioClip music)
+    {
+        incomingSource.clip = music;
+        incomingSource.loop = true;
+        incomingSource.pitch = 1f;
+        incomingSource.volume = 0f;
+        incomingSource.Play();
+
+        float duration = m_MusicCrossfadeDuration;
+        if (duration <= 0f)
+        {
+            outgoingSource.Stop();
+            outgoingSource.clip = null;
+            outgoingSource.loop = false;
+            outgoingSource.volume = m_MusicVolume;
+            incomingSource.volume = m_MusicVolume;
+        }
+        else
+        {
+            float elapsed = 0f;
+            float outgoingStartVolume = outgoingSource.isPlaying ? outgoingSource.volume : 0f;
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                float fadeProgress = Mathf.Clamp01(elapsed / duration);
+                outgoingSource.volume = Mathf.Lerp(outgoingStartVolume, 0f, fadeProgress);
+                incomingSource.volume = Mathf.Lerp(0f, m_MusicVolume, fadeProgress);
+                yield return null;
+            }
+
+            outgoingSource.Stop();
+            outgoingSource.clip = null;
+            outgoingSource.loop = false;
+            incomingSource.volume = m_MusicVolume;
+        }
+
+        m_MusicAudioSource = incomingSource;
+        m_SecondaryMusicAudioSource = outgoingSource;
+        m_MusicFadeCoroutine = null;
+    }
+
+    private void StopMusicSource(AudioSource source)
+    {
+        if (source == null) { return; }
+
+        source.Stop();
+        source.clip = null;
+        source.loop = false;
+        source.volume = m_MusicVolume;
     }
 
     private static AudioClip GetRandomClip(List<AudioClip> firstList, List<AudioClip> secondList)
@@ -173,12 +254,20 @@ public class SoundManager : Manager<SoundManager>
     {
         base.Awake();
 
-        m_AudioSource = GetComponent<AudioSource>();
+        GameObject sfxObject = new GameObject("SFX");
+        sfxObject.transform.SetParent(transform, false);
+        m_SFXAudioSource = sfxObject.AddComponent<AudioSource>();
+        m_SFXAudioSource.playOnAwake = false;
 
-        if (m_AudioSource == null)
-        {
-            Debug.LogError("SoundManager requires an AudioSource component.");
-        }
+        GameObject musicObject = new GameObject("Music");
+        musicObject.transform.SetParent(transform, false);
+        m_MusicAudioSource = musicObject.AddComponent<AudioSource>();
+        m_MusicAudioSource.playOnAwake = false;
+        m_MusicAudioSource.volume = m_MusicVolume;
+
+        m_SecondaryMusicAudioSource = musicObject.AddComponent<AudioSource>();
+        m_SecondaryMusicAudioSource.playOnAwake = false;
+        m_SecondaryMusicAudioSource.volume = m_MusicVolume;
     }
 
     private void FixedUpdate()
@@ -187,10 +276,11 @@ public class SoundManager : Manager<SoundManager>
         {
             SoundRequest request = m_SoundQueue.Dequeue();
 
-            if (request.randomizePitch) { m_AudioSource.pitch = RandomPitch; }
-            else { m_AudioSource.pitch = 1f; }
+            m_SFXAudioSource.transform.position = request.position;
+            if (request.randomizePitch) { m_SFXAudioSource.pitch = RandomPitch; }
+            else { m_SFXAudioSource.pitch = 1f; }
 
-            AudioSource.PlayClipAtPoint(request.source, request.position, m_SFXVolume);
+            m_SFXAudioSource.PlayOneShot(request.source, m_SFXVolume);
         }
     }
 }

@@ -3,16 +3,22 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Manager<GameManager>
 {
+    private void AdvanceToNextScene()
+    {
+        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        SceneManager.LoadScene(nextSceneIndex);
+        SoundManager.StartMusic(nextSceneIndex);
+    }
 
     public static void HandleDungeonExit()
     {
-        // Load the next scene in the build index
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
+        Instance.AdvanceToNextScene();
     }
 
     public static void StartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        Instance.AdvanceToNextScene();
     }
 
     public static void ExitGame()
@@ -24,5 +30,10 @@ public class GameManager : Manager<GameManager>
         Application.Quit();
 
 #endif
+    }
+
+    private void Start()
+    {
+        SoundManager.StartMusic(SceneManager.GetActiveScene().buildIndex);
     }
 }
